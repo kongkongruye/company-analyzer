@@ -1,0 +1,261 @@
+import { useState } from 'react'
+import crrcData from './data/companies/crrc.json'
+import { TrendingUp, Building2, AlertTriangle, BarChart3, DollarSign, Activity } from 'lucide-react'
+
+type CompanyData = typeof crrcData
+
+function App() {
+  const [selectedCompany, setSelectedCompany] = useState<string>('crrc')
+  
+  // 模拟公司列表，实际可从API或文件获取
+  const companies = [
+    { id: 'crrc', name: '中国中车', code: '601766' }
+  ]
+  
+  const data: CompanyData = crrcData
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* 顶部导航 */}
+      <header className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <BarChart3 className="w-8 h-8 text-blue-600" />
+            <h1 className="text-xl font-bold text-gray-900">公司分析平台</h1>
+          </div>
+          <select 
+            value={selectedCompany}
+            onChange={(e) => setSelectedCompany(e.target.value)}
+            className="px-4 py-2 border rounded-lg bg-white"
+          >
+            {companies.map(c => (
+              <option key={c.id} value={c.id}>{c.name} ({c.code})</option>
+            ))}
+          </select>
+        </div>
+      </header>
+
+      <main className="max-w-7xl mx-auto px-4 py-6 space-y-6">
+        {/* 公司基本信息 */}
+        <section className="bg-white rounded-xl shadow-sm p-6">
+          <div className="flex items-start justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">{data.name}</h2>
+              <p className="text-gray-500 mt-1">
+                股票代码: {data.code} | {data.exchange} | {data.industry}
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-gray-500">最后更新</p>
+              <p className="text-gray-700">{data.lastUpdated}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 行情数据 */}
+        <section className="bg-white rounded-xl shadow-sm p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <DollarSign className="w-5 h-5" />
+            行情数据
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-sm text-gray-500">当前股价</p>
+              <p className="text-2xl font-bold text-gray-900">¥{data.quote.currentPrice}</p>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-sm text-gray-500">总市值</p>
+              <p className="text-2xl font-bold text-gray-900">{data.quote.totalMarketCap}亿</p>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-sm text-gray-500">流通市值</p>
+              <p className="text-2xl font-bold text-gray-900">{data.quote.circulatingMarketCap}亿</p>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-sm text-gray-500">市盈率(TTM)</p>
+              <p className="text-2xl font-bold text-gray-900">{data.quote.pe}</p>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-sm text-gray-500">市净率(TTM)</p>
+              <p className="text-2xl font-bold text-gray-900">{data.quote.pb}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 财务数据 */}
+        <section className="bg-white rounded-xl shadow-sm p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <Activity className="w-5 h-5" />
+            财务数据
+          </h3>
+          
+          {/* 2024年完整数据 */}
+          <div className="mb-6">
+            <h4 className="font-medium text-gray-700 mb-3">2024年年报</h4>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-blue-50 rounded-lg p-4">
+                <p className="text-sm text-blue-600">营业收入</p>
+                <p className="text-xl font-bold text-blue-900">{data.financials["2024"].revenue}亿</p>
+                <p className="text-xs text-blue-600">同比 +{data.financials["2024"].revenueGrowth}%</p>
+              </div>
+              <div className="bg-green-50 rounded-lg p-4">
+                <p className="text-sm text-green-600">归母净利润</p>
+                <p className="text-xl font-bold text-green-900">{data.financials["2024"].netProfit}亿</p>
+                <p className="text-xs text-green-600">同比 +{data.financials["2024"].profitGrowth}%</p>
+              </div>
+              <div className="bg-purple-50 rounded-lg p-4">
+                <p className="text-sm text-purple-600">经营现金流</p>
+                <p className="text-xl font-bold text-purple-900">{data.financials["2024"].cashFlow}亿</p>
+              </div>
+              <div className="bg-orange-50 rounded-lg p-4">
+                <p className="text-sm text-orange-600">净利润现金含量</p>
+                <p className="text-xl font-bold text-orange-900">{data.financials["2024"].netProfitCashContent}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 2025季度数据 */}
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="border rounded-lg p-4">
+              <h4 className="font-medium text-gray-700 mb-3">2025年Q1</h4>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-gray-500">营业收入</span>
+                  <span className="font-medium">{data.financials["2025_Q1"].revenue}亿 <span className="text-green-600 text-sm">+{data.financials["2025_Q1"].revenueGrowth}%</span></span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">归母净利润</span>
+                  <span className="font-medium">{data.financials["2025_Q1"].netProfit}亿 <span className="text-green-600 text-sm">+{data.financials["2025_Q1"].profitGrowth}%</span></span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">每股收益</span>
+                  <span className="font-medium">¥{data.financials["2025_Q1"].eps}</span>
+                </div>
+              </div>
+            </div>
+            <div className="border rounded-lg p-4">
+              <h4 className="font-medium text-gray-700 mb-3">2025年Q3</h4>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-gray-500">营业收入</span>
+                  <span className="font-medium">{data.financials["2025_Q3"].revenue}亿 <span className="text-green-600 text-sm">+{data.financials["2025_Q3"].revenueGrowth}%</span></span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">归母净利润</span>
+                  <span className="font-medium">{data.financials["2025_Q3"].netProfit}亿 <span className="text-green-600 text-sm">+{data.financials["2025_Q3"].profitGrowth}%</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 估值分析 */}
+        <section className="bg-white rounded-xl shadow-sm p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <TrendingUp className="w-5 h-5" />
+            估值分析
+          </h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="border rounded-lg p-4">
+              <h4 className="font-medium text-gray-700 mb-3">市盈率(PE)</h4>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-gray-500">当前</span>
+                  <span className="font-bold">{data.valuation.pe.current}倍</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">历史区间</span>
+                  <span className="font-medium">{data.valuation.pe.historical}倍</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">目标区间</span>
+                  <span className="font-medium">{data.valuation.pe.target}倍</span>
+                </div>
+                <div className="mt-2 pt-2 border-t">
+                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${data.valuation.pe.assessment === '低估' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                    {data.valuation.pe.assessment}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="border rounded-lg p-4">
+              <h4 className="font-medium text-gray-700 mb-3">市净率(PB)</h4>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-gray-500">当前</span>
+                  <span className="font-bold">{data.valuation.pb.current}倍</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">历史区间</span>
+                  <span className="font-medium">{data.valuation.pb.historical}倍</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">目标区间</span>
+                  <span className="font-medium">{data.valuation.pb.target}倍</span>
+                </div>
+                <div className="mt-2 pt-2 border-t">
+                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${data.valuation.pb.assessment === '低估' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                    {data.valuation.pb.assessment}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 亮点与风险 */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* 亮点 */}
+          <section className="bg-white rounded-xl shadow-sm p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-green-600" />
+              投资亮点
+            </h3>
+            <ul className="space-y-3">
+              {data.highlights.map((highlight, index) => (
+                <li key={index} className="flex items-start gap-2">
+                  <span className="w-2 h-2 mt-2 rounded-full bg-green-500 flex-shrink-0" />
+                  <span className="text-gray-700">{highlight}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* 风险 */}
+          <section className="bg-white rounded-xl shadow-sm p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-red-600" />
+              风险因素
+            </h3>
+            <ul className="space-y-3">
+              {data.risks.map((risk, index) => (
+                <li key={index} className="flex items-start gap-2">
+                  <span className="w-2 h-2 mt-2 rounded-full bg-red-500 flex-shrink-0" />
+                  <span className="text-gray-700">{risk}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+
+        {/* 总结 */}
+        <section className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-sm p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+            <Building2 className="w-5 h-5" />
+            分析总结
+          </h3>
+          <p className="text-gray-700 leading-relaxed">{data.summary}</p>
+        </section>
+      </main>
+
+      {/* 页脚 */}
+      <footer className="bg-white border-t mt-8 py-6">
+        <div className="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+          <p>公司分析平台 | 数据仅供研究参考，不构成投资建议</p>
+        </div>
+      </footer>
+    </div>
+  )
+}
+
+export default App

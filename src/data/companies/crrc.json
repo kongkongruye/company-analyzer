@@ -1,0 +1,79 @@
+{
+  "name": "中国中车",
+  "code": "601766",
+  "exchange": "A股",
+  "industry": "轨道交通装备",
+  "lastUpdated": "2026-03-14",
+  
+  "quote": {
+    "currentPrice": 6.34,
+    "totalMarketCap": 1758.85,
+    "circulatingMarketCap": 1542.38,
+    "pe": 12.04,
+    "pb": 1.07,
+    "dividendYield": null
+  },
+  
+  "financials": {
+    "2023": {
+      "revenue": 2342.62,
+      "netProfit": 117.12,
+      "roe": null,
+      "debtRatio": null
+    },
+    "2024": {
+      "revenue": 2464.57,
+      "netProfit": 123.88,
+      "revenueGrowth": 5.21,
+      "profitGrowth": 5.77,
+      "roe": null,
+      "debtRatio": null,
+      "cashFlow": 271.28,
+      "netProfitCashContent": 2.19
+    },
+    "2025_Q1": {
+      "revenue": 486.71,
+      "netProfit": 30.53,
+      "revenueGrowth": 51.23,
+      "profitGrowth": 202.79,
+      "eps": 0.11
+    },
+    "2025_Q3": {
+      "revenue": 1839,
+      "netProfit": 99.64,
+      "revenueGrowth": 20.49,
+      "profitGrowth": 37.53
+    }
+  },
+  
+  "valuation": {
+    "pe": {
+      "current": 12.04,
+      "historical": "15-20",
+      "target": "15-18",
+      "assessment": "低估"
+    },
+    "pb": {
+      "current": 1.07,
+      "historical": "1.5-2.0",
+      "target": "1.8-2.2",
+      "assessment": "低估"
+    }
+  },
+  
+  "highlights": [
+    "2025Q1归母净利润同比增202.79%",
+    "2024年营收2464.57亿元，同比增长5.21%",
+    "净利润现金含量219%，现金流充沛",
+    "市净率1.07倍，接近每股净资产",
+    "一带一路+国内铁路投资双驱动"
+  ],
+  
+  "risks": [
+    "铁路投资周期波动",
+    "海外市场政治风险",
+    "原材料价格波动"
+  ],
+  
+  "summary": "中国中车是全球最大的轨道交通装备制造商，受益于一带一路和国内铁路投资复苏。财务数据显示营收和利润保持增长，现金流充沛。当前估值PE 12倍、PB 1.07倍，处于历史低位。"
+}

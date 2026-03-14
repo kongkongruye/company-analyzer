@@ -2,10 +2,18 @@ import { useState } from 'react'
 import crrcData from './data/companies/crrc.json'
 import { TrendingUp, Building2, AlertTriangle, BarChart3, DollarSign, Activity } from 'lucide-react'
 
-type CompanyData = typeof crrcData
+type Summary = {
+  graham: string
+  buffett: string
+  marks: string
+  overall: string
+}
+
+type CompanyData = typeof crrcData & { summary: Summary }
 
 function App() {
   const [selectedCompany, setSelectedCompany] = useState<string>('crrc')
+  const [activeTab, setActiveTab] = useState<'graham' | 'buffett' | 'marks'>('graham')
   
   // 模拟公司列表，实际可从API或文件获取
   const companies = [
@@ -270,13 +278,58 @@ function App() {
           </section>
         )}
 
-        {/* 总结 */}
+        {/* 总结 - 三大师视角 */}
         <section className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-sm p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
             <Building2 className="w-5 h-5" />
-            分析总结
+            投资大师三重视角
           </h3>
-          <p className="text-gray-700 leading-relaxed">{data.summary}</p>
+          
+          {/* Tab 切换 */}
+          <div className="flex gap-2 mb-4">
+            <button
+              onClick={() => setActiveTab('graham')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                activeTab === 'graham' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 border'
+              }`}
+            >
+              格雷厄姆
+            </button>
+            <button
+              onClick={() => setActiveTab('buffett')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                activeTab === 'buffett' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 border'
+              }`}
+            >
+              巴菲特
+            </button>
+            <button
+              onClick={() => setActiveTab('marks')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                activeTab === 'marks' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 border'
+              }`}
+            >
+              霍华德·马克斯
+            </button>
+          </div>
+          
+          {/* 内容 */}
+          <div className="bg-white rounded-lg p-4 mb-4">
+            {activeTab === 'graham' && (
+              <p className="text-gray-700 leading-relaxed">{data.summary.graham}</p>
+            )}
+            {activeTab === 'buffett' && (
+              <p className="text-gray-700 leading-relaxed">{data.summary.buffett}</p>
+            )}
+            {activeTab === 'marks' && (
+              <p className="text-gray-700 leading-relaxed">{data.summary.marks}</p>
+            )}
+          </div>
+          
+          {/* 综合结论 */}
+          <div className="border-t pt-4">
+            <p className="text-gray-900 font-medium">{data.summary.overall}</p>
+          </div>
         </section>
       </main>
 

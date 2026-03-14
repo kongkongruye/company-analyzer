@@ -238,6 +238,38 @@ function App() {
           </section>
         </div>
 
+        {/* 风险指标观测 */}
+        {data.riskIndicators && (
+          <section className="bg-white rounded-xl shadow-sm p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-orange-600" />
+              风险观测指标
+            </h3>
+            <p className="text-sm text-gray-500 mb-4">{data.riskIndicators.description}</p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {data.riskIndicators.indicators.map((indicator, index) => (
+                <div key={index} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-medium text-gray-900">{indicator.name}</h4>
+                    <span className="text-xs px-2 py-1 bg-gray-100 rounded text-gray-500">
+                      {indicator.frequency}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-2">{indicator.impact}</p>
+                  <div className="text-sm">
+                    <span className="text-orange-600 font-medium">关注: </span>
+                    <span className="text-gray-700">{indicator.watch}</span>
+                  </div>
+                  <div className="mt-2 pt-2 border-t text-sm">
+                    <span className="text-gray-500">当前: </span>
+                    <span className="text-gray-900">{indicator.current}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* 总结 */}
         <section className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-sm p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">

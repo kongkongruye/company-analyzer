@@ -61,6 +61,60 @@
     }
   },
   
+  "riskIndicators": {
+    "description": "可跟踪的风险观测指标",
+    "indicators": [
+      {
+        "name": "铁路固定资产投资",
+        "frequency": "月度",
+        "source": "国家统计局",
+        "impact": "国内需求的核心驱动",
+        "watch": "增速是否放缓",
+        "current": "2025年目标8000亿+"
+      },
+      {
+        "name": "海外新签订单",
+        "frequency": "季度",
+        "source": "公司公告",
+        "impact": "一带一路业务增长",
+        "watch": "订单金额变化",
+        "current": "跟踪中"
+      },
+      {
+        "name": "钢材价格",
+        "frequency": "周度",
+        "source": "钢铁协会/期货市场",
+        "impact": "直接影响毛利率",
+        "watch": "螺纹钢价格走势",
+        "current": "成本端压力"
+      },
+      {
+        "name": "人民币汇率",
+        "frequency": "日度",
+        "source": "外汇交易中心",
+        "impact": "海外收入折算",
+        "watch": "人民币升值不利",
+        "current": "出口占比约20%"
+      },
+      {
+        "name": "应收账款周转",
+        "frequency": "季度",
+        "source": "财报",
+        "impact": "现金流回款",
+        "watch": "周转天数变化",
+        "current": "2024年周转较好"
+      },
+      {
+        "name": "存货周转",
+        "frequency": "季度",
+        "source": "财报",
+        "impact": "库存积压风险",
+        "watch": "存货周转天数",
+        "current": "跟踪中"
+      }
+    ]
+  },
+  
   "highlights": [
     "2025Q1归母净利润同比增202.79%",
     "2024年营收2464.57亿元，同比增长5.21%",
